@@ -1,0 +1,65 @@
+<%- include('./partials/header.ejs') %> 
+<%- include('./partials/nav.ejs') %>
+<%- include('./partials/style.ejs') %>
+
+<div class="container mt-5 flex-grow-1">
+  <div class="row justify-content-center">
+    <div class="col-md-11">
+      
+      <div class="converter-card mx-auto">
+        
+        <% if(posts.length > 0) { %>
+          <h1 class="mb-3">All posts</h1>
+          
+          <p class="desc mx-auto" style="max-width: 700px;">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores
+            voluptas quod, ducimus dolorum architecto in, laboriosam quos totam soluta
+            fugiat, a illum quibusdam minus.
+          </p>
+          
+          <div class="table-responsive">
+            <table class="table table-dark table-striped table-hover text-center align-middle">
+              <thead>
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Author</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let post of posts) { %>
+                <tr>
+                  <td class="fw-bold"><%= post.title %></td>
+                  
+                  <td><%= post.description %></td>
+                  
+                  <td><%= post.author %></td>
+                  
+                  <td>
+                    <a href="/edit-post/<%= post.id %>?edit=true" class="btn btn-sm btn-outline-warning">Edit</a>
+                  </td>
+                  
+                  <td>
+                    <form action="/delete-post" method="POST" onsubmit="return confirm('Видалити цей пост?');" class="d-inline">
+                        <input type="hidden" value="<%= post.id %>" name="postId">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+
+        <% } else { %>
+          <h1>There are no posts yet!</h1>
+          <p class="desc">Click "Add Post" to create one.</p>
+        <% } %>
+      
+      </div> </div>
+  </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>
