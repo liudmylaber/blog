@@ -18,8 +18,7 @@
 * **Frontend:** EJS (Embedded JavaScript templates), Bootstrap 5
 * **Tools:** Nodemon (для розробки)
 
-## ⚙️ Інструкція із запуску (Installation)
+## ⚙️ Сайт
 
-Завантажте проєкт або склонуйте його через термінал:
 ```bash
 https://blog-0uj8.onrender.com
