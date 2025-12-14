@@ -1,49 +1,68 @@
 <%- include('./partials/header.ejs') %> 
 <%- include('./partials/nav.ejs') %>
+<%- include('./partials/style.ejs') %>
 
-<div style="max-width: 520px; margin: 0 auto">
-  <h1><%= title %></h1>
-  
-  <form method="POST" action="/edit-post">
+<div class="container mt-5 flex-grow-1">
+  <div class="row justify-content-center">
     
-    <div class="mb-3">
-      <label for="title" class="form-label">Назва</label>
-      <input
-        required
-        type="text"
-        class="form-control"
-        id="title"
-        name="title"
-        value="<%= post.title %>"
-      />
+    <div class="col-md-8 col-lg-6"> 
+      
+      <div class="converter-card mx-auto">
+        
+        <h1 class="mb-4"><%= title %></h1>
+        
+        <div class="alert alert-info text-start">
+          Відредагуйте необхідні поля та збережіть зміни.
+        </div>
+
+        <form method="POST" action="/edit-post" class="text-start">
+          
+          <div class="mb-3">
+            <label for="title" class="form-label">Назва</label>
+            <input
+              required
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              value="<%= post.title %>" 
+              placeholder="Введіть заголовок..."
+            />
+          </div>
+          
+          <div class="mb-3">
+            <label for="author" class="form-label">Автор (Прізвище)</label>
+            <input
+              required
+              type="text"
+              class="form-control"
+              id="author"
+              name="author"
+              value="<%= post.author %>"
+              placeholder="Ваше прізвище..."
+            />
+          </div>
+
+          <div class="mb-3">
+              <label for="description" class="form-label">Опис</label>
+              <textarea
+                required
+                class="form-control"
+                id="description"
+                name="description"
+                rows="5"
+                placeholder="Текст вашого поста..."
+              ><%= post.description %></textarea>
+          </div>
+
+          <input type="hidden" name="postId" value="<%= post.id %>">
+
+          <button type="submit" class="btn btn-primary mt-2">Зберегти зміни</button>
+        </form>
+
+      </div>
     </div>
-
-    <div class="mb-3">
-      <label for="author" class="form-label">Автор (Прізвище)</label>
-      <input
-        required
-        type="text"
-        class="form-control"
-        id="author"
-        name="author"
-        value="<%= post.author %>"
-      />
-    </div>
-
-    <div class="mb-3">
-        <label for="description" class="form-label">Опис</label>
-        <textarea
-          required
-          class="form-control"
-          id="description"
-          name="description"
-          rows="5"
-        ><%= post.description %></textarea>
-    </div>
-
-    <input type="hidden" name="postId" value="<%= post.id %>">
-
-    <button type="submit" class="btn btn-warning">Зберегти зміни</button>
-  </form>
+  </div>
 </div>
+
 <%- include('./partials/footer.ejs') %>

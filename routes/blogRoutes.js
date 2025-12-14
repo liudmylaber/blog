@@ -1,15 +1,13 @@
-// routes/blogRoutes.js
 const express = require('express');
 
-// Імпортуємо наш контролер
 const postController = require('../controllers/postController');
 
 const router = express.Router();
 
 // --- Визначення маршрутів ---
 
-// GET / => Головна сторінка (список постів)
-router.get('/', postController.getPosts);
+// GET / => Головна сторінка
+router.get('/', postController.getIndex);
 
 // GET /posts => Те саме, що і головна (список постів)
 router.get('/posts', postController.getPosts);

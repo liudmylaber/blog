@@ -3,7 +3,6 @@ const Post = require('../models/postModel');
 exports.getPosts = async (req, res, next) => {
     // Отримуємо параметр sort з URL (наприклад, ?sort=old)
     const sortParam = req.query.sort;
-    
     // Логіка: якщо 'old', то сортуємо ASC (зростання), інакше DESC (спадання - нові зверху)
     const order = sortParam === 'old' ? 'ASC' : 'DESC';
 
@@ -26,7 +25,7 @@ exports.getAddPost = (req, res, next) => {
 
 exports.postAddPost = async (req, res, next) => {
     const title = req.body.title;
-    const description = req.body.description; // Вказано в PDF як Description
+    const description = req.body.description; 
     const author = req.body.author;
     
     const post = new Post(title, description, author);
@@ -34,14 +33,12 @@ exports.postAddPost = async (req, res, next) => {
     res.redirect('/posts');
 };
 
-// ... (ваші попередні імпорти та методи getPosts, getAddPost, postAddPost)
-
 // 1. GET: Отримання сторінки редагування конкретного поста
 exports.getEditPost = async (req, res, next) => {
     // Очікуємо, що в URL буде ID поста, наприклад: /edit-post/1
     const postId = req.params.postId;
     
-    // Перевірка query-параметра ?edit=true (опціонально, але корисно для логіки шаблону)
+    // Перевірка query-параметра ?edit=true
     const editMode = req.query.edit;
     if (!editMode) {
         return res.redirect('/');
@@ -69,14 +66,14 @@ exports.getEditPost = async (req, res, next) => {
 
 // 2. POST: Обробка відредагованих даних та оновлення в БД
 exports.postEditPost = async (req, res, next) => {
-    // Отримуємо дані з форми (в ejs має бути приховане поле <input type="hidden" name="postId">)
+    // Отримуємо дані з форми 
     const prodId = req.body.postId;
     const updatedTitle = req.body.title;
     const updatedDesc = req.body.description;
     const updatedAuthor = req.body.author;
 
     try {
-        // Викликаємо метод моделі для оновлення (переконайтесь, що він є у postModel.js)
+        // Викликаємо метод моделі для оновлення
         await Post.update(prodId, updatedTitle, updatedDesc, updatedAuthor);
         console.log('UPDATED POST!');
         res.redirect('/posts');
@@ -95,4 +92,10 @@ exports.postDeletePost = async (req, res, next) => {
     } catch (err) {
         console.log(err);
     }
+};
+
+exports.getIndex = (req, res, next) => {
+    res.render('index', { 
+        title: 'Welcome to PostBlog' // Цей заголовок піде в <%= title %>
+    });
 };
